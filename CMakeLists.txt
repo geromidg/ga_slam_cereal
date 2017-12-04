@@ -19,6 +19,16 @@ target_link_libraries(${PROJECT_NAME}
   ${grid_map_core_LIBRARIES}
 )
 
+configure_file(
+  src/${PROJECT_NAME}.pc.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc @ONLY
+)
+
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
+  DESTINATION lib/pkgconfig
+)
+
 install(
   TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION lib
