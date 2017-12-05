@@ -1,7 +1,7 @@
 #ifndef _SERIAL_EIGEN_HPP_
 #define _SERIAL_EIGEN_HPP_
 
-#include <cereal/archives/binary.hpp>
+#include "cereal/archives/binary.hpp"
 
 #include <Eigen/Dense>
 

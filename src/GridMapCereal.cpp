@@ -1,8 +1,8 @@
 #include "GridMapCereal.hpp"
 
-#include <fstream>
+#include "cereal/archives/binary.hpp"
 
-#include <cereal/archives/binary.hpp>
+#include <fstream>
 
 void saveGridMap(const grid_map::GridMap& map, const std::string& filename) {
     std::ofstream streamOut(filename, std::ios::binary);
