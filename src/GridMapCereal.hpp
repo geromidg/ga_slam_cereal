@@ -21,7 +21,6 @@ void save(Archive& archive, const grid_map::GridMap& map) {
     grid_map::Length length = map.getLength();
     double resolution = map.getResolution();
     grid_map::Position position = map.getPosition();
-    grid_map::Size size = map.getSize();
     grid_map::Index startIndex = map.getStartIndex();
 
     std::unordered_map<std::string, grid_map::Matrix> data;
@@ -34,10 +33,9 @@ void save(Archive& archive, const grid_map::GridMap& map) {
     archive(layers);
     archive(basicLayers);
     archive(resolution);
-
-    // archive(length);
-    // archive(position);
-    // archive(startIndex);
+    archive(length);
+    archive(position);
+    archive(startIndex);
 }
 
 template <class Archive>
@@ -50,7 +48,6 @@ void load(Archive& archive, grid_map::GridMap& map) {
     grid_map::Length length;
     double resolution;
     grid_map::Position position;
-    grid_map::Size size;
     grid_map::Index startIndex;
 
     archive(frameId);
@@ -59,24 +56,19 @@ void load(Archive& archive, grid_map::GridMap& map) {
     archive(layers);
     archive(basicLayers);
     archive(resolution);
-
-    // archive(length);
-    // archive(position);
-    // archive(startIndex);
+    archive(length);
+    archive(position);
+    archive(startIndex);
 
     map.setFrameId(frameId);
     map.setTimestamp(timestamp);
-
-    // map.setGeometry(length, resolution, position);
-    map.setGeometry(grid_map::Length(10., 10.), resolution,
-            grid_map::Position(0., 0.));
+    map.setGeometry(length, resolution, position);
 
     for (const auto& layerData : data)
         map.add(layerData.first, layerData.second);
 
     map.setBasicLayers(basicLayers);
-
-    // map.setStartIndex(startIndex);
+    map.setStartIndex(startIndex);
 }
 
 }  // namespace cereal
