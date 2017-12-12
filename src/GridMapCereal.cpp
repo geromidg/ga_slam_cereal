@@ -12,9 +12,13 @@ void saveGridMap(const grid_map::GridMap& map, const std::string& filename) {
 }
 
 void loadGridMap(grid_map::GridMap& map, const std::string& filename) {
-    std::ifstream streamIn(filename, std::ios::binary);
-    cereal::BinaryInputArchive archiveIn(streamIn);
+    try {
+        std::ifstream streamIn(filename, std::ios::binary);
+        cereal::BinaryInputArchive archiveIn(streamIn);
 
-    archiveIn(map);
+        archiveIn(map);
+    } catch (const cereal::Exception& ex) {
+        std::cout << ex.what() << std::endl;
+    }
 }
 
