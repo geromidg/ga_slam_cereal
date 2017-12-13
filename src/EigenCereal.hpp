@@ -54,6 +54,18 @@ void load(Archive& archive, Eigen::Matrix<_Scalar, _Rows, _Cols,
             static_cast<std::size_t>(rows * cols * sizeof(_Scalar))));
 }
 
+template <class Archive, class Scalar, int Dim, int Mode, int _Options> inline
+void save(Archive& archive, const Eigen::Transform<Scalar, Dim, Mode,
+        _Options>& transform) {
+    archive(transform.matrix());
+}
+
+template <class Archive, class Scalar, int Dim, int Mode, int _Options> inline
+void load(Archive& archive, Eigen::Transform<Scalar, Dim, Mode,
+        _Options>& transform) {
+    archive(transform.matrix());
+}
+
 }  // namespace cereal
 
 #endif  // _SERIAL_EIGEN_HPP_
