@@ -1,10 +1,12 @@
+#pragma once
+
+#include "EigenCereal.hpp"
+
 #include "cereal/types/string.hpp"
 #include "cereal/types/vector.hpp"
 #include "cereal/types/unordered_map.hpp"
 
-#include "EigenCereal.hpp"
-
-#include "grid_map_core/grid_map_core.hpp"
+#include "grid_map_core/GridMap.hpp"
 
 void savePose(const Eigen::Affine3d& pose, const std::string& filename);
 

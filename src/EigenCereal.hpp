@@ -1,5 +1,4 @@
-#ifndef _SERIAL_EIGEN_HPP_
-#define _SERIAL_EIGEN_HPP_
+#pragma once
 
 #include "cereal/archives/binary.hpp"
 
@@ -68,4 +67,3 @@ void load(Archive& archive, Eigen::Transform<Scalar, Dim, Mode,
 
 }  // namespace cereal
 
-#endif  // _SERIAL_EIGEN_HPP_
