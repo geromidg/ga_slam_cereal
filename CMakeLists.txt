@@ -1,14 +1,23 @@
-cmake_minimum_required(VERSION 2.6)
-project(grid_map_cereal)
-
 ###############
 ### General ###
 ###############
+cmake_minimum_required(VERSION 3.5.1)  # Ubuntu 16.04 (Xenial)
+
+project(grid_map_cereal)
+
 set(TARGET_NAME ${PROJECT_NAME})
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/)
 set(CMAKE_INCLUDE_DIR ${CMAKE_SOURCE_DIR})
 
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -DNDEBUG")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
+####################
+### Dependencies ###
+####################
 include(ExternalProject)
 find_package(Eigen3 REQUIRED)
 find_package(grid_map_core REQUIRED)
