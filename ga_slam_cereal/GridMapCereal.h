@@ -12,6 +12,10 @@ void savePose(const Eigen::Affine3d& pose, const std::string& filename);
 
 void loadPose(Eigen::Affine3d& pose, const std::string& filename);
 
+void saveArray(const Eigen::ArrayXXd& array, const std::string& filename);
+
+void loadArray(Eigen::ArrayXXd& array, const std::string& filename);
+
 void saveGridMap(const grid_map::GridMap& map, const std::string& filename);
 
 void loadGridMap(grid_map::GridMap& map, const std::string& filename);

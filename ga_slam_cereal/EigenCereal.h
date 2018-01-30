@@ -10,21 +10,26 @@ template <class Archive, class _Scalar, int _Rows, int _Cols,
         int _Options, int _MaxRows, int _MaxCols> inline
 void save(Archive& archive, const Eigen::Array<_Scalar, _Rows, _Cols,
         _Options, _MaxRows, _MaxCols>& array) {
-    archive(array.x());
-    archive(array.y());
+    int rows = array.rows();
+    int cols = array.cols();
+
+    archive(rows);
+    archive(cols);
+    archive(binary_data(array.data(), rows * cols * sizeof(_Scalar)));
 }
 
 template <class Archive, class _Scalar, int _Rows, int _Cols,
         int _Options, int _MaxRows, int _MaxCols> inline
 void load(Archive& archive, Eigen::Array<_Scalar, _Rows, _Cols,
         _Options, _MaxRows, _MaxCols>& array) {
-    _Scalar x, y;
+    int rows, cols;
 
-    archive(x);
-    archive(y);
+    archive(rows);
+    archive(cols);
 
-    array.x() = x;
-    array.y() = y;
+    array.resize(rows, cols);
+    archive(binary_data(array.data(),
+            static_cast<std::size_t>(rows * cols * sizeof(_Scalar))));
 }
 
 template <class Archive, class _Scalar, int _Rows, int _Cols,
