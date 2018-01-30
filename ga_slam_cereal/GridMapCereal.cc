@@ -1,4 +1,4 @@
-#include "GridMapCereal.hpp"
+#include "ga_slam_cereal/GridMapCereal.h"
 
 #include "cereal/archives/binary.hpp"
 

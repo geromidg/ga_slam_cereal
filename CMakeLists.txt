@@ -3,17 +3,17 @@
 ###############
 cmake_minimum_required(VERSION 3.5.1)  # Ubuntu 16.04 (Xenial)
 
-project(grid_map_cereal)
+project(ga_slam_cereal)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+include("${PROJECT_SOURCE_DIR}/cmake/functions.cmake")
 
 set(TARGET_NAME ${PROJECT_NAME})
-set(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/)
-set(CMAKE_INCLUDE_DIR ${CMAKE_SOURCE_DIR})
+set(CMAKE_INCLUDE_DIR ${PROJECT_SOURCE_DIR})
+set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/${TARGET_NAME})
 
-set(CMAKE_BUILD_TYPE RelWithDebInfo)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -DNDEBUG")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+configure_build_type()
+configure_compiler_flags()
 
 ####################
 ### Dependencies ###
@@ -42,13 +42,14 @@ set(CEREAL_INCLUDE_DIR ${source_dir}/include/)
 ### Build ###
 #############
 include_directories(
+    ${CMAKE_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
     ${grid_map_core_INCLUDE_DIRS}
     ${CEREAL_INCLUDE_DIR}
 )
 
 add_library(${TARGET_NAME} SHARED
-    ${CMAKE_SOURCE_DIR}/GridMapCereal.cpp
+    ${CMAKE_SOURCE_DIR}/GridMapCereal.cc
 )
 
 # Make the build wait for this dependency
@@ -64,7 +65,7 @@ target_link_libraries(${TARGET_NAME}
 ### Pkg Config ###
 ##################
 configure_file(
-    ${CMAKE_SOURCE_DIR}/${TARGET_NAME}.pc.in
+    ${PROJECT_SOURCE_DIR}/cmake/${TARGET_NAME}.pc.in
     ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}.pc @ONLY
 )
 
@@ -82,9 +83,9 @@ install(
 )
 
 install(
-    DIRECTORY ${CMAKE_INCLUDE_DIR}
-    DESTINATION include/${TARGET_NAME}
-    FILES_MATCHING PATTERN "*.hpp"
+    DIRECTORY ${CMAKE_INCLUDE_DIR}/${TARGET_NAME}
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
 )
 
 install(

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EigenCereal.hpp"
+#include "ga_slam_cereal/EigenCereal.h"
 
 #include "cereal/types/string.hpp"
 #include "cereal/types/vector.hpp"
